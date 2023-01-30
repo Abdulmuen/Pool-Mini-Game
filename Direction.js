@@ -1,11 +1,10 @@
-class direction {
+class Direction {
     constructor(firstX, firstY, secondX, secondY){
         this.firstX = firstX;
         this.firstY = firstY;
         this.secondX = secondX;
         this.secondY = secondY;
 
-        this.angle = 0;
     }
 
     rotation(){

@@ -12,7 +12,7 @@ ASSET_MANAGER.queueDownload("./Sprites/white ball.png");
 ASSET_MANAGER.downloadAll(() => {
 	const canvas = document.getElementById("gameWorld");
 	const ctx = canvas.getContext("2d");
-	let ball = new CueBall(gameEngine);
+	let ball = new Ball(gameEngine);
 	gameEngine.addEntity(ball);
 	gameEngine.addEntity(new Stick(gameEngine, ball));
 	gameEngine.addEntity(new PoolTable());
