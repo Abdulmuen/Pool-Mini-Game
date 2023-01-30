@@ -1,7 +1,7 @@
 class Ball {
     constructor(game) {
         this.game = game;
-        this.x = 500;
+        this.x = 300;
         this.y = 300;
         this.radius = 20
         this.direction = new Direction(this.x,this.y,this.x,this.y)
