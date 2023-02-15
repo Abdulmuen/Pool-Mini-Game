@@ -7,11 +7,11 @@ class Stick {
         this.animator = new Animator2(ASSET_MANAGER.getAsset("./Sprites/stick.png"), 0, 0,820,26,1,1);
         this.temp = new Animator2(ASSET_MANAGER.getAsset("./Sprites/stick.png"), 0, 0,0,0,1,1);
         this.dir = -1;
+        this.isShooting = false;
         
     }
 
-    //needs to get y displacement
-    //needs to take power in to account
+
     shoot() {
         this.sum = (Math.abs((this.game.click.y - this.ball.y))+Math.abs((this.game.click.x - this.ball.x)));
         this.displacementx = Math.abs(((this.ball.x - 800) - this.center.x))
@@ -22,22 +22,26 @@ class Stick {
         
 
         if(this.displacement - this.game.power >= 60){
+            this.ball.power = (this.game.power * 10) + 1
+            this.ball.dx = this.game.click.x;
+            this.ball.dy = this.game.click.y;
             this.dir = 1;
         }
         if(this.dir == 1 && this.displacement < 2){
-            this.game.isballhit = true;
+            this.ball.moving = true;
+            this.ball.update_velocity();
             this.game.power = 0;
             this.game.click = null;
             this.animator = this.temp;
+            this.isShooting = false;
             //console.log(this.sum);
-        }else if(!this.game.isballhit && this.dir == -1 ){
-            let angl = Math.atan2((this.game.click.y - this.ball.y),(this.game.click.x - this.ball.x));
-            this.ball.velocity.speedX = 10 * (this.game.power/20 + 1) * Math.cos(angl);
-            this.ball.velocity.speedY = 10 * (this.game.power/20 + 1) * Math.sin(angl);
+        }else if(!this.ball.moving && this.dir == -1 ){
+            this.isShooting = true;
             this.center.x -= this.xspeed;
             this.center.y -= this.yspeed;
+
             //console.log(this.xspeed);
-        }else if(!this.game.isballhit && this.dir == 1 ){
+        }else if(!this.ball.moving && this.dir == 1 ){
             this.center.x += this.xspeed;
             this.center.y += this.yspeed;
         }
@@ -50,9 +54,8 @@ class Stick {
     }
 
     update() {
-        if(this.ball.stopped){
+        if(!this.ball.moving && !this.isShooting){
             this.updateLocation();
-            this.ball.stopped = false;
         }
 
         if(this.game.keys["w"]){
@@ -71,9 +74,7 @@ class Stick {
         this.animator.drawFrame(this.game.clockTick, ctx, this.center.x, this.center.y, this.angle); 
         ctx.font = "30px Arial";
         ctx.fillText("Power", 70, 70);
-        ctx.fillText(this.game.power/12 + 1, 100, 100);
-        if(this.game.click != null ){
-            ctx.fillText(this.game.click.x, 100, 130);
-        }
+        ctx.fillText(Math.round(this.game.power/12 + 1), 100, 100);
+
     }
 }

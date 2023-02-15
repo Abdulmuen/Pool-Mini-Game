@@ -9,7 +9,7 @@ class Timer {
 
     tick() {
         const current = Date.now();
-        const delta = (current - this.lastTimestamp) / 1000;
+        const delta = (current - this.lastTimestamp) / 500;
         this.lastTimestamp = current;
 
         const gameDelta = Math.min(delta, this.maxStep);

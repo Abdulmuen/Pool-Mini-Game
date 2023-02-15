@@ -86,6 +86,11 @@ class GameEngine {
         this.entities.push(entity);
     };
 
+    removeEntity(entity) {
+        const index = this.entities.indexOf(entity);
+        this.entities.splice(index, 1);
+    };
+
     draw() {
         // Clear the whole canvas with transparent color (rgba(0, 0, 0, 0))
         this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
