@@ -20,7 +20,7 @@ class Animator2 {
         ctx.rotate(angle);
 
         ctx.drawImage(this.spritesheet,
-            this.xStart, this.yStart,
+            this.xStart + 10, this.yStart,
             this.width, this.height,
             Math.cos(angle),Math.sin(angle),
            -this.width, -this.height

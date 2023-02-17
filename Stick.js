@@ -61,6 +61,9 @@ class Stick {
         if(this.game.keys["w"]){
             if(this.game.power < 120)this.game.power += 1;
         }
+        if(this.game.keys["s"]){
+            if(this.game.power > 1)this.game.power -= 1;
+        }
         if(this.game.click != null ){
             this.shoot();
         }else if(this.game.mouse != null && !this.ball.stopped){
@@ -71,10 +74,12 @@ class Stick {
     }
 
     draw(ctx) {   
-        this.animator.drawFrame(this.game.clockTick, ctx, this.center.x, this.center.y, this.angle); 
+        this.animator.drawFrame(this.game.clockTick, ctx, this.center.x - 20, this.center.y - 20, this.angle); 
+        ctx.fillStyle = "Yellow";
         ctx.font = "30px Arial";
-        ctx.fillText("Power", 70, 70);
-        ctx.fillText(Math.round(this.game.power/12 + 1), 100, 100);
+        ctx.fillText("Power :", 110, 40);
+        ctx.fillText(Math.round(this.game.power/12 + 1), 220, 40);
+        
 
     }
 }

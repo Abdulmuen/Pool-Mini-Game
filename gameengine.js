@@ -14,9 +14,13 @@ class GameEngine {
         this.mouse = null;
         this.wheel = null;
         this.keys = {};
-        this.power = 0;
+        this.power = 20
 
         this.isballhit = false;
+
+        this.gameOver = false;
+        
+        this.gameWon = false;
 
         // Options and the Details
         this.options = options || {
@@ -86,10 +90,6 @@ class GameEngine {
         this.entities.push(entity);
     };
 
-    removeEntity(entity) {
-        const index = this.entities.indexOf(entity);
-        this.entities.splice(index, 1);
-    };
 
     draw() {
         // Clear the whole canvas with transparent color (rgba(0, 0, 0, 0))

@@ -9,7 +9,7 @@ class BoundingCircle {
         let dy = this.y - oth.y;
         let distance = Math.sqrt(dx * dx + dy * dy);
 
-        if(distance < this.radius + oth.radius + 2){
+        if(distance < this.radius + oth.radius + 1){
             return true;
         }
         return false;
@@ -43,16 +43,44 @@ class BoundingCircle {
         
         this.ditance = Math.sqrt((this.normal.x * this.normal.x) + (this.normal.y * this.normal.y));
 
+        
+
         let s = (20-this.ditance)/this.ditance;
 
         const minimum_distance = this.product(this.normal,{x:s,y:s});
  
         this.unit_normal = {x:this.normal.x/this.ditance,y:this.normal.y/this.ditance};
+
+        
+
         
         this.unit_tangent = {x:-this.unit_normal.y,y:this.unit_normal.x};
 
+
         this.normal_components = {vn1: this.dot_product(this.unit_normal,this.v1),vn2: this.dot_product(this.unit_normal,this.v2)};
         
+        this.tt = ((40 - this.ditance)/2) + 1;//half of overlap distance plus 1
+        let overlap = {x: this.tt * Math.abs(this.unit_normal.x), y: this.tt * Math.abs(this.unit_normal.y)};
+
+        //if balls overlapp push balls apart
+        if(this.tt > 0){
+            if(ball.x > ball2.x){
+                ball.x += overlap.x;
+                ball2.x -= overlap.x;
+            }else{
+                ball.x -= overlap.x;
+                ball2.x += overlap.x;
+            }
+
+            if(ball.y > ball2.y){
+                ball.y += overlap.y;
+                ball2.y -= overlap.y;
+            }else{
+                ball.y -= overlap.y;
+                ball2.y += overlap.y;
+            }
+        }
+
         this.tangent_components = {vt1: this.dot_product(this.unit_tangent,this.v1),vt2: this.dot_product(this.unit_tangent,this.v2)};
         
         this.normal_v = {normal1 : this.product(this.unit_normal,{x:this.normal_components.vn2,y:this.normal_components.vn2}), 
@@ -82,14 +110,6 @@ class BoundingCircle {
         this.new_d2y = this.new_velocities.new_v2.y < 0 ? -1: 1;
         ball2.ydir = this.new_d2y;
 
-        // this.tt = ((40- this.ditance)/this.ditance)/2;
-
-        // const md = this.product(this.normal,{x:this.tt,y:this.tt})
-
-        // ball.x += md.x;
-        // ball.y += md.y;
-        // ball2.x -= md.x;
-        // ball2.y -= md.y;
 
 
 

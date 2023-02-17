@@ -17,6 +17,8 @@ class Ball {
 
         this.BC = new BoundingCircle(this,this.x, this.y, this.radius);
 
+
+
         //this.flag = true;
         this.inCol = true;
 
@@ -42,18 +44,6 @@ class Ball {
         this.inCol = true;
 
 
-        
-
-        //if(new_velocity.new_v1.x < 0)this.xdir *= -1;
-        //if(new_velocity.new_v1.y < 0)this.ydir *= -1;
-        //if(new_velocity.new_v2.x < 0)entity.xdir *= -1;
-        //if(new_velocity.new_v2.y < 0)entity.ydir *= -1;
-        //this.velocity = {vX: Math.abs(new_velocity.new_v1.x),vY: Math.abs(new_velocity.new_v1.y)};
-        //entity.velocity = {vX:Math.abs(new_velocity.new_v2.x), vY: Math.abs(new_velocity.new_v2.y)};
-
-        //console.log(this.xdir);
-        //console.log("--------- " + this.temp);
-
     }
 
     update() {
@@ -67,9 +57,30 @@ class Ball {
             if(this.velocity.vX < 0.05 && this.velocity.vY < 0.05) {
                 this.velocity = {vX : 0, vY : 0};
             }
-    
-            if(this.x <= 80 || this.x >= 1370){this.xdir *= -1;}
-            if(this.y <= 80 ||this.y >= 690){this.ydir *= -1;}
+
+            //left cushion
+            if(this.x <= 100 && (this.y >= 125 && this.y <= 685)){
+                this.x = 101;
+                this.xdir *= -1;
+            }
+            //right cushion
+            if(this.x >= 1397.5 && (this.y >= 125 && this.y <= 685)){
+                this.x = 1396.5;
+                this.xdir *= -1;
+            }
+
+            //top cushion
+            if(this.y <= 100 && ((this.x >= 130 && this.x <= 685) || (this.x >= 807.5 && this.x <= 1367.5))){
+                this.y = 101;
+                this.ydir *= -1;
+            }
+
+            //bottom cushion
+            if(this.y >= 715 && ((this.x >= 130 && this.x <= 685) || (this.x >= 807.5 && this.x <= 1367.5))){
+                this.y = 714;
+                this.ydir *= -1;
+            }
+
             this.x += this.velocity.vX * TICK * this.xdir;
             this.y += this.velocity.vY * TICK * this.ydir;
 
@@ -115,9 +126,10 @@ class Ball {
     draw(ctx) {
         ctx.beginPath();
         ctx.strokeStyle = this.color;
-        ctx.arc(this.x + 20, this.y + 20, this.radius,0,2*Math.PI, false);
+        ctx.arc(this.x, this.y, this.radius,0,2*Math.PI, false);
         ctx.lineWidth = 3;
         ctx.stroke();
-        ctx.drawImage(ASSET_MANAGER.getAsset("./Sprites/white ball.png"),this.x,this.y);
+        ctx.drawImage(ASSET_MANAGER.getAsset("./Sprites/white ball.png"),this.x - 20,this.y - 20);
+        
     }
 }
