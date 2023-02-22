@@ -57,6 +57,8 @@ class Stick {
         if(!this.ball.moving && !this.isShooting){
             this.updateLocation();
         }
+        let power = document.getElementById('power');
+        if(power) this.game.power = power.value;
 
         if(this.game.keys["w"]){
             if(this.game.power < 120)this.game.power += 1;

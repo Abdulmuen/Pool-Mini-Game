@@ -124,12 +124,40 @@ class Ball {
     }
 
     draw(ctx) {
+
+        let x2 = this.x;
+        let y2 = this.y;
+        if(this.game.mouse && !this.moving){
+            
+            x2 = this.game.mouse.x;
+            y2 = this.game.mouse.y;
+        }
+
+
+        if(this.color == 'White'){
+            this.draw_path(ctx,this.x,this.y,x2,y2)
+        }
+
         ctx.beginPath();
         ctx.strokeStyle = this.color;
         ctx.arc(this.x, this.y, this.radius,0,2*Math.PI, false);
         ctx.lineWidth = 3;
         ctx.stroke();
         ctx.drawImage(ASSET_MANAGER.getAsset("./Sprites/white ball.png"),this.x - 20,this.y - 20);
+
         
+
+        
+        
+    }
+
+    draw_path(ctx,x1,y1,x2,y2, length){
+        ctx.fillStyle = "red";
+        ctx.beginPath();
+        ctx.setLineDash([5, 15]);
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.stroke();
+        ctx.setLineDash([]);
     }
 }
