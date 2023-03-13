@@ -33,6 +33,7 @@ class PoolTable {
                                 that.Yellowscore += 1;
                             }
                             //TODO ball disapearing animation
+                            ASSET_MANAGER.playAsset("./sounds/pocket.mp3");
                             entity.removeFromWorld = true;
                            
                         }

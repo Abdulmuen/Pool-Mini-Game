@@ -29,6 +29,7 @@ class Stick {
         }
         if(this.dir == 1 && this.displacement < 2){
             this.ball.moving = true;
+            ASSET_MANAGER.playAsset("./sounds/stick.mp3");
             this.ball.update_velocity();
             this.game.power = 0;
             this.game.click = null;

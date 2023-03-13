@@ -7,7 +7,10 @@ ASSET_MANAGER.queueDownload("./Sprites/re.png");
 ASSET_MANAGER.queueDownload("./Sprites/stick.png");
 ASSET_MANAGER.queueDownload("./Sprites/white ball.png");
 
-
+ASSET_MANAGER.queueDownload("./sounds/ball.mp3");
+ASSET_MANAGER.queueDownload("./sounds/stick.mp3");
+ASSET_MANAGER.queueDownload("./sounds/pocket.mp3");
+ASSET_MANAGER.queueDownload("./sounds/table.mp3");
 
 ASSET_MANAGER.downloadAll(() => {
 	PARAMS.BLOCKWIDTH = PARAMS.BITWIDTH * PARAMS.SCALE;
@@ -22,17 +25,10 @@ ASSET_MANAGER.downloadAll(() => {
 	
 
 	gameEngine.init(ctx);
-	
-
-	
 
 	
 	gameEngine.start();
 	gameEngine.addEntity(new SceneManager(gameEngine));
 
 
-	
-	
-	
-	
 });

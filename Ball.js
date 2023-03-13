@@ -62,23 +62,27 @@ class Ball {
             if(this.x <= 100 && (this.y >= 125 && this.y <= 685)){
                 this.x = 101;
                 this.xdir *= -1;
+                ASSET_MANAGER.playAsset("./sounds/table.mp3");
             }
             //right cushion
             if(this.x >= 1397.5 && (this.y >= 125 && this.y <= 685)){
                 this.x = 1396.5;
                 this.xdir *= -1;
+                ASSET_MANAGER.playAsset("./sounds/table.mp3");
             }
 
             //top cushion
             if(this.y <= 100 && ((this.x >= 130 && this.x <= 685) || (this.x >= 807.5 && this.x <= 1367.5))){
                 this.y = 101;
                 this.ydir *= -1;
+                ASSET_MANAGER.playAsset("./sounds/table.mp3");
             }
 
             //bottom cushion
             if(this.y >= 715 && ((this.x >= 130 && this.x <= 685) || (this.x >= 807.5 && this.x <= 1367.5))){
                 this.y = 714;
                 this.ydir *= -1;
+                ASSET_MANAGER.playAsset("./sounds/table.mp3");
             }
 
             this.x += this.velocity.vX * TICK * this.xdir;
@@ -94,6 +98,7 @@ class Ball {
             if (entity.BC && that.BC.collide(entity.BC) & entity !== that) {
                 if (entity instanceof Ball && that.inCol) {
                     entity.stopped = false;
+                    ASSET_MANAGER.playAsset("./sounds/ball.mp3");
                     that.col(entity);
 
                 }

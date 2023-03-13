@@ -18,6 +18,8 @@ class SceneManager {
 
     loadGame(){
         if(!this.game.gameOver){
+            ASSET_MANAGER.getAsset("./sounds/ball.mp3");
+            ASSET_MANAGER.getAsset("./sounds/stick.mp3");
             let white_ball = new Ball(this.game,410,400, 'White');
             this.game.addEntity(white_ball);
             this.game.addEntity(new Stick(this.game, white_ball));
